@@ -26,6 +26,13 @@ public class ProductModel implements Serializable {
     @Column(length = 3)
     @Enumerated(EnumType.STRING)
     private TypeProduct typeProduct;
+    @Column(length = 15)
+    private String codeBar;
     @Column(precision = 10, scale = 2)
     private BigDecimal cost;
+
+    public void setCode(String code) {
+        this.code = code.trim().toUpperCase();
+    }
+
 }

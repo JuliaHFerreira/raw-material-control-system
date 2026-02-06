@@ -4,10 +4,14 @@ import com.stockcontrol.RawMaterial.models.ProductModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
 public interface ProductRepository extends JpaRepository <ProductModel, UUID> {
 
     boolean existsByCode(String code);
+
+    Optional<ProductModel> findByCode(String code);
+
 }

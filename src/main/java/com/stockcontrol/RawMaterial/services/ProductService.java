@@ -7,6 +7,9 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 @AllArgsConstructor
 public class ProductService {
@@ -20,5 +23,15 @@ public class ProductService {
         }
         productModel = productRepository.save(productModel);
         return productModel;
+    }
+
+    @Transactional
+    public Optional<ProductModel> delete(Optional<ProductModel> product0){
+        productRepository.delete(product0.get());
+        return product0;
+    }
+
+    public List<ProductModel> allProducts(){
+        return productRepository.findAll();
     }
 }
