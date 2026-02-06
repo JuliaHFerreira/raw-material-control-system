@@ -34,5 +34,4 @@ public class ProductModel implements Serializable {
     public void setCode(String code) {
         this.code = code.trim().toUpperCase();
     }
-
 }
