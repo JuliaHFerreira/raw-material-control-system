@@ -1,3 +1,26 @@
 spring:
-  application:
-    name: RawMaterial
+  #conexão com o banco
+  datasource:
+    url: jdbc:oracle:thin:@//localhost:1521/FREEPDB1
+    username: SYSTEM_MATERIAL
+    password: MATERIAL#123456
+    driver-class-name: oracle.jdbc.OracleDriver
+
+  #configuração de conexão
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+    show-sql: true
+    generate-ddl: false
+
+    #Configuração do Swagger
+    springdoc:
+      swagger-ui:
+        path: /docs
+        tags-sorter: alpha
+        operations-sorter: method

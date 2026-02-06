@@ -18,16 +18,16 @@ target/
 *.iws
 *.iml
 *.ipr
+out/
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
+### Logs ###
+*.log
+logs/
 
-### VS Code ###
-.vscode/
+### Spring configs que NÃO devem subir ###
+application-local.yaml
+application-local.yml
+
+# Env
+.env
+.env.*
