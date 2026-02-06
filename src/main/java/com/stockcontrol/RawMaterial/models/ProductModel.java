@@ -29,10 +29,9 @@ public class ProductModel implements Serializable {
     @Column(length = 15)
     private String codeBar;
     @Column(precision = 10, scale = 2)
-    private BigDecimal cost;
+    private BigDecimal price;
 
     public void setCode(String code) {
         this.code = code.trim().toUpperCase();
     }
-
 }
