@@ -21,6 +21,6 @@ spring:
     #Configuração do Swagger
     springdoc:
       swagger-ui:
-        path: /docs          # agora a UI fica em /docs
-        tags-sorter: alpha   # ordena tags em ordem alfabética
-        operations-sorter: method  # ordena endpoints por metodo HTTP (GET, POST, ...)
+        path: /docs
+        tags-sorter: alpha
+        operations-sorter: method
