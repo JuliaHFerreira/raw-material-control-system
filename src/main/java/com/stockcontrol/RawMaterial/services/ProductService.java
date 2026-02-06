@@ -1,6 +1,7 @@
 package com.stockcontrol.RawMaterial.services;
 
 import com.stockcontrol.RawMaterial.enums.TypeProduct;
+import com.stockcontrol.RawMaterial.exceptions.BarcodeExistException;
 import com.stockcontrol.RawMaterial.exceptions.CodeExistException;
 import com.stockcontrol.RawMaterial.models.ProductModel;
 import com.stockcontrol.RawMaterial.repositories.ProductRepository;
@@ -24,6 +25,9 @@ public class ProductService {
         }
         if(productModel.getTypeProduct()== TypeProduct.RAW){
             throw new IllegalArgumentException("The product is not FP");
+        }
+        if(productRepository.existsByBarcode(productModel.getBarcode())){
+            throw new BarcodeExistException("The Code bar already exists: " + productModel.getBarcode() + ". Enter a new code.");
         }
         productModel = productRepository.save(productModel);
         return productModel;

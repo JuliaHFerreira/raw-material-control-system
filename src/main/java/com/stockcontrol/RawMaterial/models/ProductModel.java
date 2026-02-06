@@ -27,7 +27,7 @@ public class ProductModel implements Serializable {
     @Enumerated(EnumType.STRING)
     private TypeProduct typeProduct;
     @Column(length = 15)
-    private String codeBar;
+    private String barcode;
     @Column(precision = 10, scale = 2)
     private BigDecimal price;
 

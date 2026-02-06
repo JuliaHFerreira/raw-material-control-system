@@ -11,6 +11,7 @@ import java.util.UUID;
 public interface ProductRepository extends JpaRepository <ProductModel, UUID> {
 
     boolean existsByCode(String code);
+    boolean existsByBarcode(String codeBar);
 
     Optional<ProductModel> findByCode(String code);
 

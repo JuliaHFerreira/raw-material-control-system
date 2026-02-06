@@ -15,6 +15,6 @@ public class ProductDto {
     private String code;
     private String description;
     private TypeProduct typeProduct;
-    private String codeBar;
+    private String barcode;
     private BigDecimal price;
 }
