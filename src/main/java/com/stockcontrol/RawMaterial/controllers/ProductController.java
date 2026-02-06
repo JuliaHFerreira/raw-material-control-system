@@ -78,7 +78,7 @@ public class ProductController {
         Optional<ProductModel> product0 = productRepository.findById(id);
 
         if (product0.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found.");
         }
 
         var userModel = product0.get();
