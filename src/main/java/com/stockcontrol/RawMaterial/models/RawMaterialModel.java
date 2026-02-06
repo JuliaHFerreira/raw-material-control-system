@@ -10,10 +10,10 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 @Entity
-@Table(name = "products")
+@Table(name = "RawMaterial")
 @Getter
 @Setter
-public class ProductModel implements Serializable {
+public class RawMaterialModel implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -29,7 +29,7 @@ public class ProductModel implements Serializable {
     @Column(length = 15)
     private String barcode;
     @Column(precision = 10, scale = 2)
-    private BigDecimal price;
+    private BigDecimal cost;
 
     public void setCode(String code) {
         this.code = code.trim().toUpperCase();

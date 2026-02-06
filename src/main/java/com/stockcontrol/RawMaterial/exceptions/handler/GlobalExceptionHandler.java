@@ -1,5 +1,6 @@
 package com.stockcontrol.RawMaterial.exceptions.handler;
 
+import com.stockcontrol.RawMaterial.exceptions.BarcodeExistException;
 import com.stockcontrol.RawMaterial.exceptions.CodeExistException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,14 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(CodeExistException.class)
-    public ResponseEntity<String> CodeExistException(IllegalArgumentException ex){
+    public ResponseEntity<String> CodeExistException(CodeExistException ex){
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(ex.getMessage());
+    }
+
+    @ExceptionHandler(BarcodeExistException.class)
+    public ResponseEntity<String> CodeBarExistException(BarcodeExistException ex){
         return ResponseEntity
                 .status(HttpStatus.CONFLICT)
                 .body(ex.getMessage());
