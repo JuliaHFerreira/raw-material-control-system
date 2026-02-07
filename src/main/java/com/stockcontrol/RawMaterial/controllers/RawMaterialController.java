@@ -1,6 +1,7 @@
 package com.stockcontrol.RawMaterial.controllers;
 
 import com.stockcontrol.RawMaterial.dtos.RawMaterialRecordDto;
+import com.stockcontrol.RawMaterial.dtos.requests.RawMaterialRecordRequest;
 import com.stockcontrol.RawMaterial.models.RawMaterialModel;
 import com.stockcontrol.RawMaterial.repositories.RawMaterialRepository;
 import com.stockcontrol.RawMaterial.services.RawMaterialService;
@@ -23,7 +24,7 @@ public class RawMaterialController {
     final RawMaterialService rawMaterialService;
     final RawMaterialRepository rawMaterialRepository;
 
-    @PostMapping("/rawmaterial")
+    @PostMapping("/rawmaterial/new")
     @Operation(
             summary = "Create a new Raw Material."
     )
@@ -55,18 +56,18 @@ public class RawMaterialController {
         return ResponseEntity.status(HttpStatus.OK).body(product0.get());
     }
 
-    @PutMapping("/rawmaterial/{id}")
+    @PutMapping("/rawmaterial/edit/{id}")
     @Operation(
             summary = "Update Raw Material for code"
     )
     public ResponseEntity<Object> updateProduct(@PathVariable(value = "id") UUID id,
-                                             @RequestBody @Valid RawMaterialRecordDto RawMaterialRecordDto ){
+                                                 @RequestBody @Valid RawMaterialRecordRequest rawMaterialRecordRequest ){
         Optional<RawMaterialModel> product0 = rawMaterialRepository.findById(id);
         if (product0.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Raw Material not found.");
         }
         var userModel = product0.get();
-        BeanUtils.copyProperties(RawMaterialRecordDto, userModel);
+        BeanUtils.copyProperties(rawMaterialRecordRequest, userModel);
         return ResponseEntity.status(HttpStatus.OK).body(rawMaterialRepository.save(userModel));
     }
 

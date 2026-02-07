@@ -6,5 +6,5 @@ import jakarta.validation.constraints.NotNull;
 public record ProductStructureRecordDto(@NotBlank String productCode,
                                         @NotBlank String rawCode,
                                         @NotNull Double quantity,
-                                        @NotNull Double loss) {
+                                        Double loss) {
 }

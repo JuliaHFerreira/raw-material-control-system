@@ -28,10 +28,10 @@ public class ProductStructureModel implements Serializable {
     private Double quantity;
     private Double loss;
 
-    public void setrawCode(String productCode) {
-        this.productCode = productCode.trim().toUpperCase();
-    }
-    public void setproductCode(String rawCode) {
+    public void setRawCode(String rawCode) {
         this.rawCode = rawCode.trim().toUpperCase();
+    }
+    public void setProductCode(String productCode) {
+        this.productCode = productCode.trim().toUpperCase();
     }
 }
