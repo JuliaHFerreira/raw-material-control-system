@@ -6,10 +6,14 @@ spring:
     password: MATERIAL#123456
     driver-class-name: oracle.jdbc.OracleDriver
 
+    #configuração do flyway
+  flyway:
+    enabled: true
+
   #configuração de conexão
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
     properties:
       hibernate:
         jdbc:
@@ -18,9 +22,9 @@ spring:
     show-sql: true
     generate-ddl: false
 
-    #Configuração do Swagger
-    springdoc:
-      swagger-ui:
-        path: /docs
-        tags-sorter: alpha
-        operations-sorter: method
+  #Configuração do Swagger
+  springdoc:
+    swagger-ui:
+    path: /docs
+    tags-sorter: alpha
+    operations-sorter: method
