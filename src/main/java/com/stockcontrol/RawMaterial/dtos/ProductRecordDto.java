@@ -8,6 +8,6 @@ import java.math.BigDecimal;
 public record ProductRecordDto(@NotBlank String code,
                                @NotBlank String description,
                                @NotNull TypeProduct typeProduct,
-                               String codeBar,
-                               BigDecimal cost) {
+                               String barcode,
+                               BigDecimal price) {
 }

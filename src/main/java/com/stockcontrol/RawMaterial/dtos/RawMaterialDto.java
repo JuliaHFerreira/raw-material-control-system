@@ -9,12 +9,12 @@ import java.util.UUID;
 
 @Getter
 @Setter
-public class ProductDto {
+public class RawMaterialDto {
 
     private UUID id;
     private String code;
     private String description;
     private TypeProduct typeProduct;
     private String barcode;
-    private BigDecimal price;
+    private BigDecimal cost;
 }

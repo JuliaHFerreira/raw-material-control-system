@@ -1,6 +1,7 @@
 package com.stockcontrol.RawMaterial.controllers;
 
 import com.stockcontrol.RawMaterial.dtos.ProductRecordDto;
+import com.stockcontrol.RawMaterial.dtos.requests.ProductRecordRequest;
 import com.stockcontrol.RawMaterial.models.ProductModel;
 import com.stockcontrol.RawMaterial.repositories.ProductRepository;
 import com.stockcontrol.RawMaterial.services.ProductService;
@@ -23,7 +24,7 @@ public class ProductController {
     final ProductService productService;
     final ProductRepository productRepository;
 
-    @PostMapping("/product")
+    @PostMapping("/product/new")
     @Operation(
             summary = "Create a new product."
     )
@@ -55,18 +56,18 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.OK).body(product0.get());
     }
 
-    @PutMapping("/product/{id}")
+    @PutMapping("/product/edit/{id}")
     @Operation(
             summary = "Update product for code"
     )
     public ResponseEntity<Object> updateProduct(@PathVariable(value = "id") UUID id,
-                                             @RequestBody @Valid ProductRecordDto productRecordDto ){ //recebe o corpo da requisição
+                                             @RequestBody @Valid ProductRecordRequest productRecordRequest ){ //recebe o corpo da requisição
         Optional<ProductModel> product0 = productRepository.findById(id);
         if (product0.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("product not found.");
         }
         var userModel = product0.get();
-        BeanUtils.copyProperties(productRecordDto, userModel);
+        BeanUtils.copyProperties(productRecordRequest, userModel);
         return ResponseEntity.status(HttpStatus.OK).body(productRepository.save(userModel));
     }
 
@@ -78,7 +79,7 @@ public class ProductController {
         Optional<ProductModel> product0 = productRepository.findById(id);
 
         if (product0.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found.");
         }
 
         var userModel = product0.get();
