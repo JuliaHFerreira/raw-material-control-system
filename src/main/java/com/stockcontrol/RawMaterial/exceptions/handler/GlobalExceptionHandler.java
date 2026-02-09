@@ -1,9 +1,6 @@
 package com.stockcontrol.RawMaterial.exceptions.handler;
 
-import com.stockcontrol.RawMaterial.exceptions.BarcodeExistException;
-import com.stockcontrol.RawMaterial.exceptions.CodeExistException;
-import com.stockcontrol.RawMaterial.exceptions.CodeNotFoundException;
-import com.stockcontrol.RawMaterial.exceptions.LessThanZeroException;
+import com.stockcontrol.RawMaterial.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -42,6 +39,13 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(LessThanZeroException.class)
     public ResponseEntity<String> LessThanZeroException(LessThanZeroException ex){
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(ex.getMessage());
+    }
+
+    @ExceptionHandler(StockUpdateException.class)
+    public ResponseEntity<String> StockUpdateException(StockUpdateException ex){
         return ResponseEntity
                 .status(HttpStatus.CONFLICT)
                 .body(ex.getMessage());
