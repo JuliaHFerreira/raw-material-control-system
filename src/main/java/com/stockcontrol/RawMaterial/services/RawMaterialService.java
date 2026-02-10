@@ -46,7 +46,10 @@ public class RawMaterialService {
 
     @Transactional
     public Optional<RawMaterialModel> delete(Optional<RawMaterialModel> product0){
-        rawMaterialRepository.delete(product0.get());
+        if (product0.isPresent()){
+            rawMaterialRepository.delete(product0.get());
+            stockService.delete(product0.get().getCode());
+        }
         return product0;
     }
 

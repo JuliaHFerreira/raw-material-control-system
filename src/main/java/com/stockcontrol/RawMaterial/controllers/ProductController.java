@@ -5,6 +5,7 @@ import com.stockcontrol.RawMaterial.dtos.requests.ProductRecordRequest;
 import com.stockcontrol.RawMaterial.models.ProductModel;
 import com.stockcontrol.RawMaterial.repositories.ProductRepository;
 import com.stockcontrol.RawMaterial.services.ProductService;
+import com.stockcontrol.RawMaterial.view.ProductCapacityView;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -54,6 +55,14 @@ public class ProductController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found: " + code);
         }
         return ResponseEntity.status(HttpStatus.OK).body(product0.get());
+    }
+
+    @GetMapping("/product/production")
+    @Operation(
+            summary = "Show what you have available to manufacture."
+    )
+    public ResponseEntity<List<ProductCapacityView>> productionAvailable(){
+        return ResponseEntity.status(HttpStatus.OK).body(productService.productionvailable());
     }
 
     @PutMapping("/product/edit/{id}")

@@ -9,11 +9,9 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -22,6 +20,14 @@ public class StockController {
 
     final StockRepository stockRepository;
     final StockService stockService;
+
+    @GetMapping ("/stock")
+    @Operation(
+            summary = "Search all Stock"
+    )
+    public ResponseEntity<List<StockModel>> getAllStock(){
+        return ResponseEntity.status(HttpStatus.OK).body(stockService.allStock());
+    }
 
     @PutMapping("/stock/update/{code}")
     @Operation(
