@@ -4,7 +4,10 @@ import com.stockcontrol.RawMaterial.enums.TypeProduct;
 import com.stockcontrol.RawMaterial.exceptions.BarcodeExistException;
 import com.stockcontrol.RawMaterial.exceptions.CodeExistException;
 import com.stockcontrol.RawMaterial.models.ProductModel;
+import com.stockcontrol.RawMaterial.models.StockModel;
+import com.stockcontrol.RawMaterial.repositories.ProductCrudRepository;
 import com.stockcontrol.RawMaterial.repositories.ProductRepository;
+import com.stockcontrol.RawMaterial.view.ProductCapacityView;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,6 +20,8 @@ import java.util.Optional;
 public class ProductService {
 
     final ProductRepository productRepository;
+    final ProductCrudRepository productCrudRepository;
+    final StockService stockService;
 
     @Transactional
     public ProductModel save(ProductModel productModel){
@@ -29,17 +34,36 @@ public class ProductService {
         if(productRepository.existsByBarcode(productModel.getBarcode())){
             throw new BarcodeExistException("The Code bar already exists: " + productModel.getBarcode() + ". Enter a new code.");
         }
+
         productModel = productRepository.save(productModel);
+
+        StockModel stockModel = new StockModel();
+        stockModel.setCode(productModel.getCode());
+        stockModel.setDescription(productModel.getDescription());
+        stockModel.setTypeProduct(productModel.getTypeProduct());
+        stockModel.setStockQuantity(0.00);
+        stockModel.setBarcode(productModel.getBarcode());
+
+        stockService.createdStock(stockModel);
         return productModel;
     }
 
     @Transactional
     public Optional<ProductModel> delete(Optional<ProductModel> product0){
-        productRepository.delete(product0.get());
+
+        if (product0.isPresent()){
+            productRepository.delete(product0.get());
+            stockService.delete(product0.get().getCode());
+        }
         return product0;
     }
 
     public List<ProductModel> allProducts(){
         return productRepository.findAll();
     }
+
+    public List<ProductCapacityView> productionvailable(){
+        return productCrudRepository.findProductionCapacity();
+    }
+
 }
