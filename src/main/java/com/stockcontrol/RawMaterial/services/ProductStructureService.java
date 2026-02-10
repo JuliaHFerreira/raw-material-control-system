@@ -30,7 +30,7 @@ public class ProductStructureService {
             throw new CodeNotFoundException("Product code not found.: " + productStructureModel.getProductCode() + ". Enter an existing code.");
         }
         if(!rawMaterialRepository.existsByCode(productStructureModel.getRawCode())){
-            throw new CodeNotFoundException("Raw Material code not found.: " + productStructureModel.getProductCode() + ". Enter an existing code.");
+            throw new CodeNotFoundException("Raw Material code not found.: " + productStructureModel.getRawCode() + ". Enter an existing code.");
         }
         if(productStructureModel.getQuantity() <= 0){
             throw new LessThanZeroException("The quantity must be greater than zero");

@@ -7,9 +7,11 @@ import com.stockcontrol.RawMaterial.exceptions.LessThanZeroException;
 import com.stockcontrol.RawMaterial.exceptions.StockUpdateException;
 import com.stockcontrol.RawMaterial.models.StockModel;
 import com.stockcontrol.RawMaterial.repositories.StockRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -34,7 +36,7 @@ public class StockService {
         Optional<StockModel> byUpStock = stockRepository.findByCode(stockModel.getCode());
 
         if (byUpStock.isPresent()){
-            if(!byUpStock.get().getBarcode().equals(stockModel.getBarcode())){
+            if(!byUpStock.get().getBarcode().equals(stockUpdateRecordRequest.barcode())){
                 throw new BarcodeExistException("The barcode doesn't match the one registered.");
             }
             if (stockUpdateRecordRequest.stockQuantity() == 0.00){
@@ -52,8 +54,17 @@ public class StockService {
         return stockModel;
     }
 
-    //fazer consulta de estoque
+    @Transactional
+    public void delete(String code) {
+        Optional<StockModel> byUpStock = stockRepository.findByCode(code);
 
-    //funcionalidades para a consulta dos produtos que podem ser produzidos com as matérias-primas disponíveis em estoque.
+        if (byUpStock.isPresent()){
+            stockRepository.delete(byUpStock.get());
+        }
+    }
+
+    public List<StockModel> allStock (){
+        return stockRepository.findAll();
+    }
 
 }
