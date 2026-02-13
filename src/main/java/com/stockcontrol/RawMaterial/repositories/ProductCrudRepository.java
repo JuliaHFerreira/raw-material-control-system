@@ -51,10 +51,9 @@ public interface ProductCrudRepository extends CrudRepository<ProductModel, UUID
                 ELSE 'OK'
               END AS structure_status
             FROM products p
-            LEFT JOIN structure_quty sq
-              ON sq.product_code = p.code
-            LEFT JOIN stock_raw sr
-              ON sr.code = sq.raw_code
+            LEFT JOIN structure_quty sq ON sq.product_code = p.code
+            LEFT JOIN stock_raw sr ON sr.code = sq.raw_code
+            WHERE sr.stock_quantity > 0
             GROUP BY p.code, p.description, P.PRICE
             ORDER BY P.PRICE DESC
         """, nativeQuery = true)
