@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+@CrossOrigin(origins = "*")
 @RestController
 @AllArgsConstructor
 public class ProductStructureController {
@@ -75,7 +76,7 @@ public class ProductStructureController {
         return ResponseEntity.status(HttpStatus.OK).body(productStructureRepository.save(userModel));
     }
 
-    @DeleteMapping("/structure/{productCode}")
+    @DeleteMapping("/structure/all/{productCode}")
     @Operation(
             summary = "Delete all structure by product code "
     )
