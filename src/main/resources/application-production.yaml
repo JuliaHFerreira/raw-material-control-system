@@ -1,0 +1,30 @@
+spring:
+  #conexão com o banco
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+    driver-class-name: oracle.jdbc.OracleDriver
+
+    #configuração do flyway
+  flyway:
+    enabled: true
+
+  #configuração de conexão
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+    show-sql: true
+    generate-ddl: false
+
+  #Configuração do Swagger
+  springdoc:
+    swagger-ui:
+    path: /docs
+    tags-sorter: alpha
+    operations-sorter: method
